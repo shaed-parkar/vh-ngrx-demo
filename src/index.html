@@ -1,13 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>VhNgrxDemo</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>VH ngrx Demo</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body class="govuk-template__body">
+    <header></header>
+    <div class="govuk-width-container">
+      <main class="govuk-main-wrapper" id="main-content">
+        <app-root></app-root>
+      </main>
+    </div>
+
+    <footer></footer>
+    <script>
+      document.body.className = document.body.className ? document.body.className + ' js-enabled' : 'js-enabled';
+    </script>
+  </body>
 </html>
