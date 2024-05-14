@@ -4,7 +4,7 @@ import { ConferenceState } from './store/conference.reducer';
 import * as ConferenceActions from './store/conference.actions';
 import * as ConferenceSelectors from './store/conference.selectors';
 import { EndpointStatus, ParticipantStatus, VHConference } from './models/vh-conference';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +18,13 @@ import { Observable, Subject, takeUntil } from 'rxjs';
         Stop List
       </button>
     </div>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row" *ngFor="let conf of conferences">
+        <dt class="govuk-summary-list__key">Case Name</dt>
+        <dd class="govuk-summary-list__value">{{ conf.caseName }} - {{ conf.scheduledDateTime | date : 'medium' }}</dd>
+      </div>
+    </dl>
 
     <h2 class="govuk-heading-m">Selected Conference</h2>
     <div class="govuk-button-group">
@@ -82,6 +89,7 @@ export class AppComponent implements OnDestroy {
 
   private onDestroy$ = new Subject<void>();
   conference: VHConference | undefined = undefined;
+  conferences: VHConference[] = [];
 
   constructor(private store: Store<ConferenceState>) {
     this.store
@@ -89,6 +97,13 @@ export class AppComponent implements OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((conf) => {
         this.conference = conf;
+      });
+
+    this.store
+      .select(ConferenceSelectors.selectConferenceList)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((confs) => {
+        this.conferences = confs;
       });
   }
 
@@ -102,7 +117,7 @@ export class AppComponent implements OnDestroy {
       ConferenceActions.setActiveConference({
         payload: {
           id: '1',
-          scheduledDateTime: new Date(),
+          scheduledDateTime: new Date('2024-05-15T10:00:00'),
           duration: 60,
           caseNumber: '12345',
           caseName: 'Test Case',

@@ -51,9 +51,10 @@ export const conferenceReducer = createReducer(
       return state;
     }
     return { ...state, currentConference: { ...state.currentConference, messages: payload } };
-  })
+  }),
+  on(conferenceActions.conferenceListLoaded, (state, { payload }) => ({ ...state, conferences: payload }))
 );
 
-export const getConfState = createFeatureSelector<ConferenceState>('conference');
+export const getConfState = createFeatureSelector<ConferenceState>('foo');
 export const getActiveConference = (state: ConferenceState) => state.currentConference;
 export const getConferencesList = (state: ConferenceState) => state.conferences;

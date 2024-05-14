@@ -12,14 +12,14 @@ export class ConferencesService {
     return of([
       {
         id: '1',
-        scheduledDateTime: new Date(),
+        scheduledDateTime: new Date('2024-05-15T10:00:00'),
         duration: 60,
         caseNumber: '12345',
         caseName: 'Test Case',
       },
       {
         id: '2',
-        scheduledDateTime: new Date(),
+        scheduledDateTime: new Date('2024-05-15T11:00:00'),
         duration: 60,
         caseNumber: '12346',
         caseName: 'Test Case 2',
@@ -30,7 +30,7 @@ export class ConferencesService {
   getConference(id: string): Observable<VHConference> {
     return of({
       id: '1',
-      scheduledDateTime: new Date(),
+      scheduledDateTime: new Date('2024-05-15T10:00:00'),
       duration: 60,
       caseNumber: '12345',
       caseName: 'Test Case',
@@ -64,7 +64,7 @@ export class ConferencesService {
         from_display_name: 'Shaed Parkar',
         is_user: true,
         message: 'Hello',
-        timestamp: new Date(),
+        timestamp: new Date('2024-05-15T10:00:00'),
         to: 'Admin',
       },
     ];

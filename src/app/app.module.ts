@@ -15,7 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ conference: conferenceReducer }),
+    StoreModule.forRoot({ foo: conferenceReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot(ConferenceEffects),
   ],

@@ -7,3 +7,5 @@ export const selectActiveConference = createSelector(confState, (state) => state
 export const selectParticipantList = createSelector(selectActiveConference, (state) => state?.participants);
 export const selectEndpointList = createSelector(selectActiveConference, (state) => state?.endpoints);
 export const selectConferenceMessages = createSelector(selectActiveConference, (state) => state?.messages);
+
+export const selectConferenceList = createSelector(confState, (state) => state.conferences);

@@ -6,6 +6,7 @@ export const removeActiveConference = createAction('[Conference] Remove Conferen
 
 export const startJudgePolling = createAction('[ConferenceList] Start Judge List Polling');
 export const stopJudgePolling = createAction('[ConferenceList] Stop Judge List Polling');
+export const conferenceListLoaded = createAction('[ConferenceList] Conference List Loaded', props<{ payload: VHConference[] }>());
 
 export const updateConferenceStatus = createAction(
   '[Conference] Update Participant Status',
@@ -20,8 +21,6 @@ export const updateEndpointStatus = createAction(
   '[Conference] Update Endpoint Status',
   props<{ payload: UpdatEndpointStatusPayload }>()
 );
-
-export const conferenceListLoaded = createAction('[ConferenceList] Conference List Loaded', props<{ payload: VHConference[] }>());
 
 export const conferenceMessagesLoaded = createAction('[Conference] Conference Messages Loaded', props<{ payload: IMItem[] }>());
 
