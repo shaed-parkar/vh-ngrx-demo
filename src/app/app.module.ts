@@ -7,6 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { conferenceReducer } from './store/conference.reducer';
+import { ConferenceEffects } from './store/conference.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +17,7 @@ import { conferenceReducer } from './store/conference.reducer';
     AppRoutingModule,
     StoreModule.forRoot({ conference: conferenceReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot(ConferenceEffects),
   ],
   providers: [],
   bootstrap: [AppComponent],

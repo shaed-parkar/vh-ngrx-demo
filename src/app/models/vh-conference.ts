@@ -6,6 +6,7 @@ export interface VHConference {
   caseName: string;
   participants: Array<Participant>;
   endpoints: Array<Endpoint>;
+  messages: Array<IMItem>;
 }
 
 export interface Participant {
@@ -47,4 +48,15 @@ export enum EndpointStatus {
   Connected = 'Connected',
   Disconnected = 'Disconnected',
   InConsultation = 'InConsultation',
+}
+
+export interface IMItem {
+  id?: string;
+  from?: string;
+  from_display_name?: string;
+  to?: string;
+  message: string;
+  timestamp: Date;
+  /** Did the message originate from user logged in */
+  isLoggedInUser: boolean;
 }

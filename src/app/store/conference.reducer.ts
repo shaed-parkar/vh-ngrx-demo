@@ -1,24 +1,26 @@
-import { createReducer, on } from '@ngrx/store';
+import { createFeatureSelector, createReducer, on } from '@ngrx/store';
 import { VHConference } from '../models/vh-conference';
 import * as conferenceActions from './conference.actions';
 
 export interface ConferenceState {
   currentConference: VHConference | undefined;
+  conferences: VHConference[];
 }
 
 export const initialState: ConferenceState = {
   currentConference: undefined,
+  conferences: [],
 };
 
 export const conferenceReducer = createReducer(
   initialState,
-  on(conferenceActions.setActiveConference, (_state, { payload }) => ({ currentConference: payload })),
-  on(conferenceActions.removeActiveConference, (_state) => ({ currentConference: undefined })),
+  on(conferenceActions.setActiveConference, (state, { payload }) => ({ ...state, currentConference: payload })),
+  on(conferenceActions.removeActiveConference, (state) => ({ ...state, currentConference: undefined })),
   on(conferenceActions.updateConferenceStatus, (state, { payload }) => {
     if (!state.currentConference) {
       return state;
     }
-    return { currentConference: { ...state.currentConference, status: payload.status } };
+    return { ...state, currentConference: { ...state.currentConference, status: payload.status } };
   }),
   on(conferenceActions.updateParticipantStatus, (state, { payload }) => {
     if (!state.currentConference) {
@@ -30,7 +32,7 @@ export const conferenceReducer = createReducer(
       }
       return p;
     });
-    return { currentConference: { ...state.currentConference, participants: updatedParticipants } };
+    return { ...state, currentConference: { ...state.currentConference, participants: updatedParticipants } };
   }),
   on(conferenceActions.updateEndpointStatus, (state, { payload }) => {
     if (!state.currentConference) {
@@ -42,8 +44,16 @@ export const conferenceReducer = createReducer(
       }
       return e;
     });
-    return { currentConference: { ...state.currentConference, endpoints: updatedEndpoints } };
+    return { ...state, currentConference: { ...state.currentConference, endpoints: updatedEndpoints } };
+  }),
+  on(conferenceActions.conferenceMessagesLoaded, (state, { payload }) => {
+    if (!state.currentConference) {
+      return state;
+    }
+    return { ...state, currentConference: { ...state.currentConference, messages: payload } };
   })
 );
 
-export const getConference = (state: ConferenceState) => state.currentConference;
+export const getConfState = createFeatureSelector<ConferenceState>('conference');
+export const getActiveConference = (state: ConferenceState) => state.currentConference;
+export const getConferencesList = (state: ConferenceState) => state.conferences;
